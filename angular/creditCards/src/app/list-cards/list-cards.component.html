@@ -1,0 +1,19 @@
+<div class="card">
+	<div class="card-body">
+		<h5 class="title">LIST CARDS</h5>
+		<table class="table">
+			<tr class="fw-bold">
+				<td>Owner</td>
+				<td>Card Number</td>
+				<td>Expiration Date</td>
+			</tr>
+			<tr>
+				@for (item of listCards; track $index) {
+				<td>{{item.Owner}}</td>
+				<td>{{item.cardNumber}}</td>
+				<td>{{item.expirationDate}}</td>
+				}
+			</tr>
+		</table>
+	</div>
+</div>

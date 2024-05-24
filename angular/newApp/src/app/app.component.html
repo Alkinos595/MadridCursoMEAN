@@ -1,0 +1,7 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <app-formulario (selectedParameters)="searchNew($event)"></app-formulario>
+</div>
+<app-spinner></app-spinner>
+<app-lista-noticias [newsList]="newsList"></app-lista-noticias>
+

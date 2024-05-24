@@ -1,0 +1,38 @@
+<div class="card p-4">
+	<div class="card-body">
+		<h5 class="title">CREATE CARD</h5>
+	</div>
+	<form  [formGroup]="form" (ngSubmit)="addCard()">
+		<div class="input-group mb-3">
+			<span class="input-group-text">
+				<i class="fa-solid fa-at" [class.green-icon] = "this.form.get('owner')?.valid"></i>
+			</span>
+			<input type="text" class="form-control" placeholder="Email" formControlName="owner"/>
+		</div>
+		<div class="row">
+			<div class="col-lg-7">
+				<div class="input-group mb-3">
+					<span class="input-group-text">
+						<i class="fa-solid fa-credit-card" [class.green-icon] = "this.form.get('cardNumber')?.valid"></i>
+					</span>
+					<input type="text" class="form-control" placeholder="Card number" formControlName="cardNumber"/>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="input-group mb-3">
+					<span class="input-group-text">
+						<i class="fa-solid fa-shield-halved" [class.green-icon] = "this.form.get('cvv')?.valid"></i>
+					</span>
+					<input type="text" class="form-control" placeholder="CVV" formControlName="cvv"/>
+				</div>
+			</div>
+		</div>
+		<div class="input-group mb-3">
+			<span class="input-group-text">
+				<i class="fa-regular fa-calendar-days" [class.green-icon] = "this.form.get('expirationDate')?.valid"></i>
+			</span>
+			<input type="text" class="form-control" placeholder="Expiration date" formControlName="expirationDate"/>
+		</div>
+		<div class=""> <button type="submit" class="btn btn-primary ">Send</button> </div>
+	</form>
+</div>

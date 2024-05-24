@@ -1,0 +1,15 @@
+.heading {
+    font-weight: 900;
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.jumbotron {
+    padding: 3rem;
+    background-color: rgb(175, 225, 225);
+    border-radius: 2rem;
+    -webkit-box-shadow: 5px 5px 15px -5px;
+    -moz-box-shadow: 5px 5px 15px -5px;
+    box-shadow: 5px 5px 15px -5px;
+}

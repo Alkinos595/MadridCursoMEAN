@@ -1,0 +1,19 @@
+#head1{
+    text-align: center;
+}
+
+.mytext{
+    color: blue;
+    font-size: 20px;
+    text-align: center;
+}
+
+.mylink:visited{
+    color: orange;
+}
+.mylink:hover{
+    color: purple;
+}
+.mylink:active{
+    color: red;
+}
