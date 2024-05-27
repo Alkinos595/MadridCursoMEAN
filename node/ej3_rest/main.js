@@ -1,6 +1,6 @@
-const mongodbUtils = require('../utils/mongodb_utils.js');
-const make = require("./endpoints/endpointPeliculas.js");
 const http = require("http");
+const mongodbUtils = require('../utils/mongodb_utils.js');
+const endpointPeliculas = require("./endpoints/endpointPeliculas.js");
 const port = 3000;
 
 mongodbUtils.conectar();

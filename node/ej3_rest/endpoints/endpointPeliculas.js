@@ -16,4 +16,6 @@ exports.listarPeliculas = function (req, res) {
 
 exports.insertarPeliculas = function (req, res) {
 
+
+	
 }
