@@ -40,16 +40,16 @@ GET /actores?idPelicula={id}
 Las tareas de la lógica de control en un servicio son las siguientes:
 
 - Extraer de la petición los valores necesarios
-    -query parameters
-    -parámetros interpolados en la ruta
-    -contenido del body
-    -valores en los headers
-    -cualquier combinación de los anteriores
+	-query parameters
+	-parámetros interpolados en la ruta
+	-contenido del body
+	-valores en los headers
+	-cualquier combinación de los anteriores
 
 - Adaptar esos valores a las necesidades de la lógica de negocio
 
 - Invocar la función con la lógica de negocio
-    -Solo una!!!
+	-Solo una!!!
 
 - Componer y entregar la respuesta con el resultado de la ejecución
   de la lógica de negocio
@@ -71,41 +71,41 @@ Tareas que NO debe ejecutar la lógica de control:
 
 const negocioPeliculas = require("../negocio/negocioPeliculas")
 
-exports.listarPeliculas = function(request, response){
-  //recoger de la petición el criterio de búsqueda
-  let criterio = {}
-  negocioPeliculas.listarPeliculas(criterio)
-    .then(peliculas => {
-		response.setHeader('Content-Type', 'application/json')
-		response.end(JSON.stringify(peliculas))
-    })
-    .catch(error => {
-		console.log(error)
-		response.statusCode = 500
-		response.end("Error al listar las películas")
-    })
+exports.listarPeliculas = function (request, response) {
+	//recoger de la petición el criterio de búsqueda
+	let criterio = {}
+	negocioPeliculas.listarPeliculas(criterio)
+		.then(peliculas => {
+			response.json(peliculas);
+		})
+		.catch(error => {
+			console.log(error)
+			response
+				.status(500)
+				.end("Error al listar las películas");
+		})
 }
 
 
 //POST /peliculas
 //-------------------------
 //
-exports.insertarPelicula = function(request, response){
+exports.insertarPelicula = function (request, response) {
 
-	request.on('data', function(body){
-		let pelicula = JSON.parse(body)
+	let pelicula = request.body;
 
-		negocioPeliculas.insertarPelicula(pelicula)
-		.then( resultado => {
-			response.statusCode = 201
-			response.end()
+	negocioPeliculas.insertarPelicula(pelicula)
+		.then(resultado => {
+			response
+				.status(201)
+				.json(resultado);
 		})
 		.catch(error => {
-			console.log(error)
-			response.statusCode = error.codigo
-			response.end(error.mensaje)    
-		})  
-	})
+			console.log(error);
+			response
+				.status(error.codigo)
+				.json(error.mensaje);
+		})
 
 }
 
@@ -135,38 +135,38 @@ class EndpointPeliculas {
 
 <clientes>
   <cliente id="1">
-    <nombre>aaa</nombre>
-    <direccion>bbb</direccion>
-    <telefono>ccc</telefono>
+	<nombre>aaa</nombre>
+	<direccion>bbb</direccion>
+	<telefono>ccc</telefono>
   </cliente>
   <cliente id="2">
-    <nombre>qwe</nombre>
-    <direccion>rty</direccion>
-    <telefono>uio</telefono>
+	<nombre>qwe</nombre>
+	<direccion>rty</direccion>
+	<telefono>uio</telefono>
   </cliente>
   <cliente id="3">
-    <nombre>qqq</nombre>
-    <direccion>www</direccion>
-    <telefono>eee</telefono>
+	<nombre>qqq</nombre>
+	<direccion>www</direccion>
+	<telefono>eee</telefono>
   </cliente>
 </clientes>
 
 
 [
   {
-    "nombre"    : "",
-    "direccion" : "",
-    "telefono"  : "",
+	"nombre"    : "",
+	"direccion" : "",
+	"telefono"  : "",
   },
   {
-    "nombre"    : "",
-    "direccion" : "",
-    "telefono"  : "",
+	"nombre"    : "",
+	"direccion" : "",
+	"telefono"  : "",
   },
   {
-    "nombre"    : "",
-    "direccion" : "",
-    "telefono"  : "",
+	"nombre"    : "",
+	"direccion" : "",
+	"telefono"  : "",
   }
 ]
 
