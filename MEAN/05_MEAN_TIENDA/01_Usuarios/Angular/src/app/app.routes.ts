@@ -6,26 +6,28 @@ import { RegistroComponent } from './componentes/usuarios/registro/registro.comp
 import { ConfirmacionRegistroComponent } from './componentes/usuarios/confirmacion-registro/confirmacion-registro.component';
 
 export const routes: Routes = [
-	{
-		path: '',
-		component: MaquetacionLoginComponent,
-		children:[
-			{
-				path:'',
-				component: LoginComponent
-			},
-			{
-				path:'registro',
-				component: RegistroComponent
-			},
-			{
-				path:'confirmacion',
-				component: ConfirmacionRegistroComponent
-			},
-		]
-	},
-	{
-		path: 'tienda',
-		component: MaquetacionTiendaComponent
-	},
+
+    {
+        path: '',
+        component: MaquetacionLoginComponent,
+        children: [
+            {
+                path: '',
+                component: LoginComponent
+            },
+            {
+                path: 'registro',
+                component: RegistroComponent
+            },
+            {
+                path: 'confirmacion',
+                component: ConfirmacionRegistroComponent
+            } 
+        ]
+    },
+    {
+        path: 'tienda',
+        component: MaquetacionTiendaComponent
+    }
+
 ];
