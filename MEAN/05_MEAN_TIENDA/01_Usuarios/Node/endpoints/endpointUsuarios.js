@@ -1,64 +1,71 @@
-const negocioUsuario = require("../negocio/negocioUsuarios");
-//const express = require("express");
-//let router = express.Router();
-//router.get('/usuarios', ...);
+const negocioUsuarios = require("../negocio/negocioUsuarios")
+//const express = require("express")
+//let router = express.Router()
+//router.get('/usuarios', ...)
+const router = require("express").Router()
 
+router.post('/usuarios', insertarUsuario)
+router.put('/usuarios/:id', modificarUsuario)
+router.delete('/usuarios/:id', bajaUsuario)
+router.head('/usuarios',comprobarLoginUsuario)
 
-const router = require("express").Router();
+exports.router = router
 
-router.post('/usuarios', insertarUsuario);
-router.put('/usuarios/:id', modificarUsuario);
-router.delete('/usuario/:id', bajaUsuario);
-router.head('/usuarios', comprobarLoginUsuario);
+///////////////////////////////////////
+// FUNCIONES DE LA LÓGICA DE CONTROL //
+///////////////////////////////////////
 
-exports.router = router;
-
-// FUNCIONES DE LOGICA DE CONTROL
-
-/* 
+/*
 POST /usuarios
 Content-type: application/json
+------------------------------
+{ usuario }
 */
-
 function insertarUsuario(request, response){
-    let usuario = request.body;
+    let usuario = request.body
 
-    negocioUsuario.insertarUsuario(usuario)
+    negocioUsuarios.insertarUsuario(usuario)
     .then( resultado => {
         response
             .status(201)
             .json(resultado)
     } )
     .catch( error => {
-        console.log(error);
-        response
-        .status(error.codigo)
-        .json(error)
-    } )
-}
-
-
-// PUT /usuarios/:id
-function modificarUsuario(request, response){
-    let idUsuario = request.params.id;
-    let usuario = request.body;
-
-    if(usuario._id != idUsuario){
-        response.status(400).json("Que cojones estas haciendo con los id");
-        return;
-    }
-    
-
-    negocioUsuario.modificarUsuario(usuario)
-    .then( () => {
-        response.json({ mensaje: "El usuario se modifico correctamente"})
-    })
-    .catch( error => {
-        console.log(error);
+        console.log(error)
         response
             .status(error.codigo)
-            .json(error)
+            .json(error)        
     })
+}
+
+//PUT /usuarios/87
+//CT: app/json
+//----------------
+//{
+//  _id       : 101,
+//  nombre    : "Bartolo"
+//  direccion : ...
+//}
+function modificarUsuario(request, response){
+
+    let idUsuario = request.params.id
+    let usuario = request.body
+    if( usuario._id != idUsuario ){
+        response.status(400).json("Qué cojones estás haciendo con los ids")
+        return
+    }
+
+    negocioUsuarios.modificarUsuario(usuario)
+    .then( () => {
+        response.json({ mensaje : "El usuario se modificó correctamente" })
+    })
+    .catch( error => {
+        console.log(error)
+        response
+            .status(error.codigo)
+            .json(error)        
+    })    
+
 }
 
 function bajaUsuario(request, response){
@@ -74,20 +81,15 @@ function comprobarLoginUsuario(request, response){
         return
     }
 
-    negocioUsuario.buscarPorLogin(login)
+    negocioUsuarios.buscarPorLogin(login)
     .then( usuario => {
         if(usuario){
-            response.json()
-        }else{
+            response.json() //Es un head, no pondremos nada en el body
+        } else {
             response
             .status(404)
-            .json({codigo:404, mensajes: "No existe un usuario con ese login"})
-        }
-
-        response.json() //Es un head, no pondremos nada en el body
-        //response
-        //    .setHeader("content-type", "application/json")
-        //    .end() //Es un head, no pondremos nada en el body
+            .json({ codigo:404, mensaje: "No existe un usuario con ese login"})            
+        }            
     })
     .catch(error => {
         console.log(error)
@@ -97,3 +99,5 @@ function comprobarLoginUsuario(request, response){
     })
 
 }
+
+

@@ -1,7 +1,7 @@
-const fs = require("fs");
+const fs = require("fs")
 
-const clave = fs.readFileSync("./autenticacion/clave_jwt.txt");
+const clave = fs.readFileSync("./autenticacion/clave_jwt.txt")
 
 exports.getClaveJWT = function(){
-    return clave;
+    return clave
 }

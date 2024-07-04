@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, tap } from "rxjs";
 import { Usuario } from "../entidades/usuario";
 import { configuracion } from "../../util/configuracion";
 import { ServicioAutenticacion } from "./servicioAutenticacion";
@@ -24,13 +24,25 @@ export class ServicioUsuarios {
     }
 
     public modificarUsuario(usuario:Usuario):Observable<any>{
+        //El interceptorJWT se encarga de añadir el header authorization a las peticiones
         return this.httpClient.put(
-            configuracion.urlServicio+"/seguro/usuarios/"+usuario._id, 
-            usuario,
-            { headers : { Authorization : "Bearer "+this.servicioAutenticacion.getJWT() } }       
-        )
+                configuracion.urlServicio+"/seguro/usuarios/"+usuario._id, 
+                usuario,
+                /*{ headers : { Authorization : "Bearer "+this.servicioAutenticacion.getJWT() } }*/       
+            )
+            .pipe(
+                tap( () => this.servicioAutenticacion.setUsuario(usuario) )
+            )        
     }
 
     //borrarUsuario
+    public borrarUsuario():Observable<any>{
+        let usuario:Usuario = this.servicioAutenticacion.getUsuario()
+        return this.httpClient
+            .delete(configuracion.urlServicio+"/seguro/usuarios/"+usuario._id)
+            .pipe(
+                tap( () => this.servicioAutenticacion.logout())
+            )
+    }
 
 }
